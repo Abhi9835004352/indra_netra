@@ -1,0 +1,445 @@
+{
+  "info": {
+    "name": "Indra Netra - Crowd Safety Backend API",
+    "description": "Complete API testing collection for Indra Netra backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Event Management",
+      "item": [
+        {
+          "name": "Create Event",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Hackathon 2025\",\n  \"totalCapacity\": 3000,\n  \"safeLimit\": 2550,\n  \"zones\": [\"A\", \"B\", \"C\"],\n  \"gates\": [\n    { \"gateId\": \"G1\", \"zoneName\": \"A\", \"capacity\": 1000 },\n    { \"gateId\": \"G2\", \"zoneName\": \"B\", \"capacity\": 1000 },\n    { \"gateId\": \"G3\", \"zoneName\": \"C\", \"capacity\": 1000 }\n  ]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/events",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "events"]
+            }
+          }
+        },
+        {
+          "name": "Get All Events",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/events",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "events"]
+            }
+          }
+        },
+        {
+          "name": "Get Event by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/events/{{eventId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "events", "{{eventId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Gate",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"gateId\": \"G1\",\n  \"gateName\": \"Main Gate - North\",\n  \"zoneName\": \"A\",\n  \"capacity\": 1000,\n  \"eventId\": \"{{eventId}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/events/{{eventId}}/gate",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "events", "{{eventId}}", "gate"]
+            }
+          }
+        },
+        {
+          "name": "Get Gates for Event",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/events/{{eventId}}/gates",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "events", "{{eventId}}", "gates"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Registration",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"phone\": \"9876543210\",\n  \"email\": \"john@example.com\",\n  \"gate\": \"G1\",\n  \"zone\": \"A\",\n  \"timeSlot\": \"10:00-11:00\",\n  \"eventId\": \"{{eventId}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Get User by Phone",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/auth/user?phone=9876543210&eventId={{eventId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "user"],
+              "query": [
+                {
+                  "key": "phone",
+                  "value": "9876543210"
+                },
+                {
+                  "key": "eventId",
+                  "value": "{{eventId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Registration History",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/auth/registration-history?phone=9876543210",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "registration-history"],
+              "query": [
+                {
+                  "key": "phone",
+                  "value": "9876543210"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Gate Check-in",
+      "item": [
+        {
+          "name": "Check-in User (Scan QR)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"qrCode\": \"{\\\"userId\\\":\\\"9876543210\\\",\\\"eventId\\\":\\\"{{eventId}}\\\",\\\"timestamp\\\":1234567890,\\\"unique\\\":\\\"uuid-here\\\"}\",\n  \"eventId\": \"{{eventId}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/gate/checkin",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "gate", "checkin"]
+            }
+          }
+        },
+        {
+          "name": "Get Gate Statistics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/gate/stats?eventId={{eventId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "gate", "stats"],
+              "query": [
+                {
+                  "key": "eventId",
+                  "value": "{{eventId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Gate Details",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/gate/detail?gateId=G1&eventId={{eventId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "gate", "detail"],
+              "query": [
+                {
+                  "key": "gateId",
+                  "value": "G1"
+                },
+                {
+                  "key": "eventId",
+                  "value": "{{eventId}}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Crowd Detection & Alerts",
+      "item": [
+        {
+          "name": "Receive AI Detection (Zone A - Green)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"zone\": \"A\",\n  \"detectedCount\": 500,\n  \"eventId\": \"{{eventId}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/crowd/detect",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "crowd", "detect"]
+            }
+          }
+        },
+        {
+          "name": "Receive AI Detection (Zone B - Yellow)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"zone\": \"B\",\n  \"detectedCount\": 950,\n  \"eventId\": \"{{eventId}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/crowd/detect",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "crowd", "detect"]
+            }
+          }
+        },
+        {
+          "name": "Receive AI Detection (Zone C - Red)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"zone\": \"C\",\n  \"detectedCount\": 1150,\n  \"eventId\": \"{{eventId}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/crowd/detect",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "crowd", "detect"]
+            }
+          }
+        },
+        {
+          "name": "Get Crowd Metrics",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/crowd/metrics?eventId={{eventId}}&zone=A",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "crowd", "metrics"],
+              "query": [
+                {
+                  "key": "eventId",
+                  "value": "{{eventId}}"
+                },
+                {
+                  "key": "zone",
+                  "value": "A"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Latest Crowd State",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/crowd/latest?eventId={{eventId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "crowd", "latest"],
+              "query": [
+                {
+                  "key": "eventId",
+                  "value": "{{eventId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Alerts",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/crowd/alerts?eventId={{eventId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "crowd", "alerts"],
+              "query": [
+                {
+                  "key": "eventId",
+                  "value": "{{eventId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Unacknowledged Alerts",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/crowd/alerts?eventId={{eventId}}&acknowledged=false",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "crowd", "alerts"],
+              "query": [
+                {
+                  "key": "eventId",
+                  "value": "{{eventId}}"
+                },
+                {
+                  "key": "acknowledged",
+                  "value": "false"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Acknowledge Alert",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alertId\": \"{{alertId}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/crowd/alert-acknowledge",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "crowd", "alert-acknowledge"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:5000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["health"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "eventId",
+      "value": "paste_event_id_here",
+      "type": "string"
+    },
+    {
+      "key": "alertId",
+      "value": "paste_alert_id_here",
+      "type": "string"
+    }
+  ]
+}

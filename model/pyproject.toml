@@ -1,0 +1,17 @@
+[project]
+name = "stempede"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "keras>=3.12.0",
+    "lapx>=0.9.2",
+    "litserve>=0.2.16",
+    "numpy>=2.3.4",
+    "opencv-python>=4.11.0.86",
+    "sahi>=0.11.36",
+    "tensorflow>=2.20.0",
+    "torch>=2.9.1",
+    "ultralytics>=8.3.229",
+]

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///D:/indra_netra/frontend/app/user/layout.tsx"],"sourcesContent":["\"use client\"\r\n\r\nimport type { ReactNode } from \"react\"\r\n\r\nexport default function UserLayout({ children }: { children: ReactNode }) {\r\n  return <>{children}</>\r\n}\r\n"],"names":[],"mappings":";;;;;AAAA;;AAIe,SAAS,WAAW,EAAE,QAAQ,EAA2B;IACtE,qBAAO;kBAAG;;AACZ"}}]
+}
